@@ -56,4 +56,13 @@ public class StudentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+   @GetMapping("/FindStudentAsPerLNameAndId/{id}/{lastName}") 
+   private ResponseEntity<Student> getStudentFromIdAndLastName(@PathVariable long id , @PathVariable String lastName){
+    Student fetchedStudent = studentService.getStudentFromIdAndLastName(id,lastName);
+    if(fetchedStudent != null){
+      return new ResponseEntity<>(fetchedStudent,HttpStatus.FOUND);
+    }
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+   }
+
 }

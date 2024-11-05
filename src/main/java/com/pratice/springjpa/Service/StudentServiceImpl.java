@@ -29,5 +29,9 @@ public class StudentServiceImpl implements StudentService {
     public Optional<Student> findByFirstName(String name) {
       return studentRepository.findByFirstName(name);
     }
+    @Override
+    public Student getStudentFromIdAndLastName(long id, String lastName) {
+      return studentRepository.getStudentByIdandLastName(id, lastName).orElse(null);
+    }
 
 }

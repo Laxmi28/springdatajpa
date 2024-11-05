@@ -18,4 +18,6 @@ public interface StudentService {
 
     Optional<Student> findByFirstName(String name);
 
+    Student getStudentFromIdAndLastName(long id, String lastName);
+
 }
