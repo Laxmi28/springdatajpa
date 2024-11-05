@@ -1,5 +1,6 @@
 package com.pratice.springjpa.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Table(name = "Student_tb_Student" ,
- uniqueConstraints = @UniqueConstraint(name="email_no_duplication_constraint",columnNames = "emailId"))
+ uniqueConstraints = @UniqueConstraint(name="email_no_duplication_constraint",columnNames = "email_id"))
 
 public class Student {
     
@@ -27,7 +28,7 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="student_seq")
     private long id;
     private String name;
-
+    @Column(name = "email_id", nullable = false)
     private String emailId;
     
 
