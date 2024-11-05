@@ -46,5 +46,14 @@ public class StudentController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    @GetMapping("/studentsFetchedByFirstName/{name}")
+    private ResponseEntity<Student> findByFirstName(@PathVariable String name){
+        Optional<Student> fetchedStudent = studentService.findByFirstName(name);
+        if(fetchedStudent.get() != null){
+          return new ResponseEntity<>(fetchedStudent.get(),HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

@@ -16,4 +16,6 @@ public interface StudentService {
 
     Optional<Student> findById(Long id);
 
+    Optional<Student> findByFirstName(String name);
+
 }

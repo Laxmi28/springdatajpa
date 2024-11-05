@@ -15,7 +15,7 @@ class SpringjpaApplicationTests {
 
 	@Test
 	private void save(){
-		Student student = Student.builder().emailId("pranya01@gmail.com").name("Pranya Rathi").build();
+		Student student = Student.builder().emailId("pranya01@gmail.com").lastName("Pranya Rathi").build();
 		System.out.println("Inside test save ()");
 		studentRepository.save(student);
 		System.out.println("test save () executed");
