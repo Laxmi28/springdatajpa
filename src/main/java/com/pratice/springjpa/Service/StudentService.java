@@ -22,4 +22,10 @@ public interface StudentService {
 
     Student getStudentFromEmailId(String emailId);
 
+    void deleteStudentById(long id);
+
+    Student updatedStudent(long id, Student student);
+
+    Student partialStudentDetailsUpdate(long id, Student student);
+
 }

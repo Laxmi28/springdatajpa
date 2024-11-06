@@ -37,5 +37,56 @@ public class StudentServiceImpl implements StudentService {
     public Student getStudentFromEmailId(String emailId) {
       return studentRepository.getStudentFromEmailAddress(emailId).orElse(null);
     }
+    @Override
+    public void deleteStudentById(long id) {
+      if (studentRepository.existsById(id)){
+          studentRepository.deleteById(id);
+      }else{
+         throw new RuntimeException("Student does not exists or is already deleted");
+      }
+    }
+    @Override
+    public Student updatedStudent(long id, Student student) {
+      if(studentRepository.existsById(id)){
+        Optional<Student> studentToBeUpadated = studentRepository.findById(id);
+        Student studentStoredInDB = studentToBeUpadated.get();
+        if(studentStoredInDB!=null){
+           studentStoredInDB.setFirstName(student.getFirstName());
+           studentStoredInDB.setLastName(student.getLastName());
+           studentStoredInDB.setEmailId(student.getEmailId());
+           studentRepository.save(studentStoredInDB);
+           return studentStoredInDB;
+        }
+      }else{
+        throw new RuntimeException("Student by this id does not exist");
+      }
+      return null;
+    }
+    @Override
+    public Student partialStudentDetailsUpdate(long id, Student student) {
+      if(studentRepository.existsById(id)){
+        Optional<Student> studentToBeUpadated = studentRepository.findById(id);
+        Student studentStoredInDB = studentToBeUpadated.get();
+        if(studentStoredInDB!=null){
+          if(student.getFirstName() != null){
+            studentStoredInDB.setFirstName(student.getFirstName());
+          } 
+
+          if(student.getEmailId() != null){
+            studentStoredInDB.setEmailId(student.getEmailId());
+          }
+
+          if(student.getLastName()!=null){
+            studentStoredInDB.setEmailId(student.getEmailId()); 
+          }
+            
+           studentRepository.save(studentStoredInDB);
+           return studentStoredInDB;
+        }
+      }else{
+        throw new RuntimeException("Student by this id does not exist");
+      }
+      return null;
+    }
 
 }

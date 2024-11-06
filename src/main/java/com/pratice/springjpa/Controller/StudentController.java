@@ -14,9 +14,11 @@ import com.pratice.springjpa.Entity.Student;
 import com.pratice.springjpa.Service.StudentService;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -74,6 +76,43 @@ public class StudentController {
       return new ResponseEntity<>(fetchedStudent,HttpStatus.OK);
     }
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+   }
+
+   @PutMapping("/updateStudentDetails/{id}")
+    private ResponseEntity<Student> updateStudentDetails(@PathVariable long id , @RequestBody Student student){
+      try{
+        Student updatedStudent = studentService.updatedStudent(id,student);
+        return new ResponseEntity<>(updatedStudent,HttpStatus.OK);
+      }catch (RuntimeException exception){
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+    
+    }   
+      
+   @PatchMapping("/partialStudentUpdate/{id}")
+   private ResponseEntity<Student>  partialStudentDetailsUpdate(@PathVariable long id , @RequestBody Student student) {
+    try{
+      Student partialUpdatedStudent = studentService.partialStudentDetailsUpdate(id,student);
+      return new ResponseEntity<>(partialUpdatedStudent,HttpStatus.OK);
+    }catch (RuntimeException exception){
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  
+
+   }
+   
+   @DeleteMapping("/removeStudent/{id}")
+   private ResponseEntity<Student> deleteStudentById(@PathVariable long id){
+    try{
+      studentService.deleteStudentById(id);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }catch (RuntimeException exception){
+      System.err.println(exception);
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    
+
+    
    }
    
 }
