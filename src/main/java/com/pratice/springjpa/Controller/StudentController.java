@@ -16,6 +16,8 @@ import com.pratice.springjpa.Service.StudentService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -64,5 +66,14 @@ public class StudentController {
     }
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
    }
-
+   
+   @GetMapping("/StudentAsPerEmail/{emailId}")
+   private ResponseEntity<Student> getStudentFromEmalId(@PathVariable String emailId){
+    Student fetchedStudent = studentService.getStudentFromEmailId(emailId);
+    if(fetchedStudent != null){
+      return new ResponseEntity<>(fetchedStudent,HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+   }
+   
 }

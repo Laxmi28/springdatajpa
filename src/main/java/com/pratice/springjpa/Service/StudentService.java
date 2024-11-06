@@ -20,4 +20,6 @@ public interface StudentService {
 
     Student getStudentFromIdAndLastName(long id, String lastName);
 
+    Student getStudentFromEmailId(String emailId);
+
 }

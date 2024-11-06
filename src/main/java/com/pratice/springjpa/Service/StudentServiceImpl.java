@@ -33,5 +33,9 @@ public class StudentServiceImpl implements StudentService {
     public Student getStudentFromIdAndLastName(long id, String lastName) {
       return studentRepository.getStudentByIdandLastName(id, lastName).orElse(null);
     }
+    @Override
+    public Student getStudentFromEmailId(String emailId) {
+      return studentRepository.getStudentFromEmailAddress(emailId).orElse(null);
+    }
 
 }
