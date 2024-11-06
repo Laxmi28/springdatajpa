@@ -6,12 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pratice.springjpa.Entity.Student;
 import com.pratice.springjpa.Service.StudentService;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,7 +35,7 @@ public class StudentController {
     private StudentService studentService;
     
     @PostMapping("/createStudent")
-    private ResponseEntity<Student> createStudent(@RequestBody Student student){
+    private ResponseEntity<Student> createStudent(@Valid @RequestBody Student student){
         studentService.save(student);
         return  new ResponseEntity<>(student,HttpStatus.CREATED);
     }
@@ -88,7 +91,19 @@ public class StudentController {
       }
     
     }   
-      
+    
+    @PutMapping("/updateStudentDetailsFromName/{id}/{name}")
+    private ResponseEntity<Student> updateStudentDetailsById(@PathVariable long id , @PathVariable String name){
+      try{
+        Student updatedStudent = studentService.updatedStudentNameById(id,name);
+        return new ResponseEntity<>(updatedStudent,HttpStatus.OK);
+      }catch (RuntimeException exception){
+        System.out.println(exception);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+    
+    } 
+    
    @PatchMapping("/partialStudentUpdate/{id}")
    private ResponseEntity<Student>  partialStudentDetailsUpdate(@PathVariable long id , @RequestBody Student student) {
     try{

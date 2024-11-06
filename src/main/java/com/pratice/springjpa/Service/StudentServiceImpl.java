@@ -88,5 +88,20 @@ public class StudentServiceImpl implements StudentService {
       }
       return null;
     }
+    @Override
+    public Student updatedStudentNameById(long id,String firstName) {
+      if(studentRepository.existsById(id)){
+        Optional<Student> studentToBeUpadated = studentRepository.findById(id);
+        Student studentStoredInDB = studentToBeUpadated.get();
+        if(studentStoredInDB!=null){
+           studentRepository.updateStudentNameFromId(id, firstName);
+           studentRepository.save(studentStoredInDB);
+           return studentStoredInDB;
+        }
+      }else{
+        throw new RuntimeException("Student by this id does not exist");
+      }
+      return null;
+    }
 
 }

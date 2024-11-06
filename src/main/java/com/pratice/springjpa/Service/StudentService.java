@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pratice.springjpa.Entity.Student;
 
 @Service
+
 public interface StudentService {
 
     void save(Student student);
@@ -27,5 +28,7 @@ public interface StudentService {
     Student updatedStudent(long id, Student student);
 
     Student partialStudentDetailsUpdate(long id, Student student);
+
+    Student updatedStudentNameById(long id,String Name);
 
 }
