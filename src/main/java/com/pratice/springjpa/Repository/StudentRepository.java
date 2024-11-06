@@ -13,6 +13,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     
     Optional<Student>  findByFirstName(String firstName);
     
+    //JPQL query 
     @Query("select s from Student s where s.id = ?1 and s.lastName = ?2")
     Optional<Student> getStudentByIdandLastName(long id , String lastName);
 }
