@@ -1,5 +1,7 @@
 package com.pratice.springjpa.Service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.pratice.springjpa.Entity.Course;
@@ -8,5 +10,7 @@ import com.pratice.springjpa.Entity.Course;
 public interface CourseService {
 
     void saveCourse(Course course);
+
+    List<Course> findAll();
 
 }

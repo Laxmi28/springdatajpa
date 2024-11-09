@@ -1,9 +1,11 @@
 package com.pratice.springjpa.Entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -29,6 +31,9 @@ public class Course {
     @NotBlank(message = "The course name can never be blank")
     @NotNull(message = "The course name can never be null")
     private String courseName;
+    
+    @OneToOne(mappedBy = "course",fetch = FetchType.EAGER)
+    private CourseMaterial courseMaterial;
     
    
 }
