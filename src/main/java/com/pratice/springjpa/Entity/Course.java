@@ -29,4 +29,6 @@ public class Course {
     @NotBlank(message = "The course name can never be blank")
     @NotNull(message = "The course name can never be null")
     private String courseName;
+    
+   
 }
