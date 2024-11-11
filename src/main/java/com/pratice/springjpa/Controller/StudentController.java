@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pratice.springjpa.Entity.Student;
 import com.pratice.springjpa.Service.StudentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,18 +31,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/student/")
+@Tag(name = "Student" , description = "get , put , post , delete , update and patch api")
 public class StudentController {
     
     @Autowired
     private StudentService studentService;
     
     @PostMapping("/createStudent")
+    @Operation(description = "It is used to store new student details")
     private ResponseEntity<Student> createStudent(@Valid @RequestBody Student student){
         studentService.save(student);
         return  new ResponseEntity<>(student,HttpStatus.CREATED);
     }
     
     @GetMapping("/fetchAllStudents")
+    @Operation(description = "It is used to get all the stored students details")
     private List<Student> getAllStudents(){
         return studentService.getAllStudents();
     }

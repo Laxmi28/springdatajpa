@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pratice.springjpa.Entity.Course;
 import com.pratice.springjpa.Service.CourseService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/course")
+@Tag(name = "Courses",description = "create course api")
 public class CourseController {
     
     @Autowired
