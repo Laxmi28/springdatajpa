@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pratice.springjpa.Entity.Student;
+import com.pratice.springjpa.Exceptionhadling.StudentNotFoundException;
 import com.pratice.springjpa.Service.StudentService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,12 +52,10 @@ public class StudentController {
     }
     
     @GetMapping("/findStudentById/{id}")
-    private ResponseEntity<Student> findById(@PathVariable Long id){
-        Optional<Student> fetchedStudent = studentService.findById(id);
-        if(fetchedStudent.get() != null){
-          return new ResponseEntity<>(fetchedStudent.get(),HttpStatus.FOUND);
-        }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    private ResponseEntity<Student> findById(@PathVariable Long id) throws StudentNotFoundException{
+        Optional<Student> fetchedStudent = Optional.of(studentService.findById(id).orElseThrow(() -> new StudentNotFoundException("student is not found")));
+        return new ResponseEntity<>(fetchedStudent.get(),HttpStatus.FOUND);
+     
     }
     
     @GetMapping("/studentsFetchedByFirstName/{name}")
