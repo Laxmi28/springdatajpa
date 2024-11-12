@@ -10,6 +10,7 @@ import com.pratice.springjpa.Service.CourseService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/api/course")
 @Tag(name = "Courses",description = "create course api")
+@Slf4j
 public class CourseController {
     
     @Autowired
@@ -50,6 +52,7 @@ public class CourseController {
             return new ResponseEntity<>(courses,HttpStatus.OK);
         }catch (Exception exception){
              System.err.println(exception);
+             log.error("There is some error" , exception );
              return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } 
     }
