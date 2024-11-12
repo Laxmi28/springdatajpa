@@ -3,6 +3,8 @@ package com.pratice.springjpa.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,8 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
     
+    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
+    
     @PostMapping("/createStudent")
     @Operation(description = "It is used to store new student details")
     private ResponseEntity<Student> createStudent(@Valid @RequestBody Student student){
@@ -53,11 +57,13 @@ public class StudentController {
     
     @GetMapping("/findStudentById/{id}")
     private ResponseEntity<Student> findById(@PathVariable Long id) throws StudentNotFoundException{
+        logger.info("under find by student id method");
         Optional<Student> fetchedStudent = Optional.of(studentService.findById(id).orElseThrow(() -> new StudentNotFoundException("student is not found")));
+       
         return new ResponseEntity<>(fetchedStudent.get(),HttpStatus.FOUND);
      
     }
-    
+
     @GetMapping("/studentsFetchedByFirstName/{name}")
     private ResponseEntity<Student> findByFirstName(@PathVariable String name){
         Optional<Student> fetchedStudent = studentService.findByFirstName(name);
@@ -66,6 +72,14 @@ public class StudentController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // @GetMapping("/studentsFetchedByFirstName/{name}")
+    // private ResponseEntity<Student> findByFirstName(@PathVariable String name) throws StudentNotFoundException{
+    //     Optional<Student> fetchedStudent = studentService.findByFirstName(name);
+    //     logger.error("The student does not exists {}",name,new StudentNotFoundException("The student is not present"));
+    //     return new ResponseEntity<>(fetchedStudent.get(),HttpStatus.FOUND);
+  
+    // }
 
    @GetMapping("/FindStudentAsPerLNameAndId/{id}/{lastName}") 
    private ResponseEntity<Student> getStudentFromIdAndLastName(@PathVariable long id , @PathVariable String lastName){
